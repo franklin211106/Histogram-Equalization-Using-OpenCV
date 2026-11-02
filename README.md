@@ -1,4 +1,7 @@
 # EXPERIMENT 03 – HISTOGRAM EQUALIZATION USING OPENCV
+# PROGRAM DEVELOPED BY
+# Name:FRANKLIN .F
+# Register No.: 212224240041
 
 ## AIM
 
@@ -24,11 +27,6 @@ To implement histogram equalization using OpenCV in Python to improve the contra
 8. Display the original image, equalized image and their histograms.
 9. Compare both images to observe the improvement in contrast.
 
-## PROGRAM DEVELOPED BY
-
-**Name:** FRANKLIN .F
-
-**Register No.:** 212224240041
 
 ## PROGRAM
 
