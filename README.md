@@ -29,115 +29,56 @@ To implement histogram equalization using OpenCV in Python to improve the contra
 
 
 ## PROGRAM
-
-### Step 1: Import Required Libraries
-
 ```python
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-```
 
-### Step 2: Read the Input Image
+image = cv2.imread('Ip2.jpg')
 
-```python
-img = cv2.imread('WhatsApp Image 2026-10-24 at 3.32.56 PM.jpeg')
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+hist_original = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
 
-plt.figure(figsize=(8,6))
-plt.imshow(gray, cmap='gray')
-plt.title("Original Grayscale Image")
-plt.axis('off')
-plt.show()
-```
+equalized_image = cv2.equalizeHist(gray_image)
 
-### Step 3: Display the Histogram of Original Image
+hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
 
-```python
-hist = cv2.calcHist([gray], [0], None, [256], [0,256])
+plt.figure(figsize=(10, 7))
 
-plt.figure(figsize=(8,5))
-plt.plot(hist)
-plt.title("Histogram of Original Image")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Number of Pixels")
-plt.show()
-```
-
-### Step 4: Apply Histogram Equalization
-
-```python
-equalized = cv2.equalizeHist(gray)
-
-plt.figure(figsize=(8,6))
-plt.imshow(equalized, cmap='gray')
-plt.title("Histogram Equalized Image")
-plt.axis('off')
-plt.show()
-```
-
-### Step 5: Display Histogram of Equalized Image
-
-```python
-hist_equalized = cv2.calcHist([equalized], [0], None, [256], [0,256])
-
-plt.figure(figsize=(8,5))
-plt.plot(hist_equalized)
-plt.title("Histogram of Equalized Image")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Number of Pixels")
-plt.show()
-```
-
-### Step 6: Compare Original and Equalized Images
-
-```python
-plt.figure(figsize=(12,6))
-
-plt.subplot(1,2,1)
-plt.imshow(gray, cmap='gray')
-plt.title("Original Image")
+plt.subplot(2, 2, 1)
+plt.imshow(gray_image, cmap='gray')
+plt.title('Original Grayscale Image')
 plt.axis('off')
 
-plt.subplot(1,2,2)
-plt.imshow(equalized, cmap='gray')
-plt.title("Equalized Image")
+plt.subplot(2, 2, 2)
+plt.imshow(equalized_image, cmap='gray')
+plt.title('Equalized Image')
 plt.axis('off')
 
-plt.show()
-```
+plt.subplot(2, 2, 3)
+plt.plot(hist_original, color='black')
+plt.title('Original Histogram')
+plt.xlim([0, 256])
 
-### Step 7: Compare Both Histograms
+plt.subplot(2, 2, 4)
+plt.plot(hist_equalized, color='black')
+plt.title('Equalized Histogram')
+plt.xlim([0, 256])
 
-```python
-plt.figure(figsize=(12,5))
-
-plt.subplot(1,2,1)
-plt.plot(hist)
-plt.title("Original Histogram")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Frequency")
-
-plt.subplot(1,2,2)
-plt.plot(hist_equalized)
-plt.title("Equalized Histogram")
-plt.xlabel("Pixel Intensity")
-plt.ylabel("Frequency")
-
+plt.tight_layout()
 plt.show()
 ```
 
 ## OUTPUT
+## Input Grayscale Image and Color Image
+## Histogram of Grayscale Image and any channel of Color Image
+<img width="431" height="422" alt="image" src="https://github.com/user-attachments/assets/175ebbcc-48f5-488e-971f-c7599364729d" />
+<img width="605" height="443" alt="image" src="https://github.com/user-attachments/assets/5acc314d-b795-425b-8751-d8ae4dbcb9df" />
 
-<img width="523" height="535" alt="image" src="https://github.com/user-attachments/assets/c8e77dd3-f610-4b61-b074-1ddb2e5ddcb9" />
-<img width="835" height="538" alt="image" src="https://github.com/user-attachments/assets/38c867ec-058b-47b4-a737-4c3e1b46cdb6" />
-<img width="752" height="537" alt="image" src="https://github.com/user-attachments/assets/8cb24847-6b40-4dfd-9f96-bb2518fb7363" />
-<img width="480" height="532" alt="image" src="https://github.com/user-attachments/assets/d26897cb-f63b-444c-95b7-7bcb78e08ca7" />
-<img width="517" height="550" alt="image" src="https://github.com/user-attachments/assets/7ef40b5e-038a-4a74-8eea-e4b9f1451bbe" />
-<img width="727" height="532" alt="image" src="https://github.com/user-attachments/assets/2abd1a74-a47b-47ed-8b88-da19570c56ed" />
-<img width="1442" height="523" alt="image" src="https://github.com/user-attachments/assets/2ec4aa42-2d09-4a0f-a815-9aa3b6d0d424" />
-<img width="1390" height="427" alt="image" src="https://github.com/user-attachments/assets/7a18f9b7-4353-468a-8ee3-fe93d388bded" />
+## Histogram Equalization of Grayscale Image
+<img width="357" height="425" alt="image" src="https://github.com/user-attachments/assets/a9a105e3-fd0c-4f3d-8a44-48e934685979" />
+<img width="667" height="428" alt="image" src="https://github.com/user-attachments/assets/d5dfd995-3090-4397-8ad8-93e42f5b184d" />
 
 
 ## RESULT
