@@ -52,41 +52,115 @@ Display original color image, histogram, enhanced image, and enhanced histogram 
 
 ### Register No: 212224240041
 ```python
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('MY_PIC.jpeg', cv2.IMREAD_GRAYSCALE)
+# Read Original Grayscale Image
+img = cv2.imread(
+    'WhatsApp Image 2026-10-24 at 3.32.56 PM.jpeg',
+    cv2.IMREAD_GRAYSCALE
+)
+
+if img is None:
+    raise ValueError("Image not found. Check the image path.")
+
+# Display Original Image
+plt.figure(figsize=(6, 5))
 plt.imshow(img, cmap='gray')
 plt.title('Original Image')
+plt.axis('off')
 plt.show()
 
-plt.hist(img.ravel(),256,range = [0, 256]);
-plt.title('Original Image')
+# Display Original Histogram
+plt.hist(img.ravel(), bins=256, range=[0, 256])
+plt.title('Original Image Histogram')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
 plt.show()
 
+# Perform Histogram Equalization
 img_eq = cv2.equalizeHist(img)
-plt.hist(img_eq.ravel(), 256, range = [0, 256])
+
+# Display Equalized Histogram
+plt.hist(img_eq.ravel(), bins=256, range=[0, 256])
 plt.title('Equalized Histogram')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+plt.show()
 
+# Display Equalized Image
+plt.figure(figsize=(6, 5))
 plt.imshow(img_eq, cmap='gray')
-plt.title('Original Image')
+plt.title('Equalized Image')
+plt.axis('off')
 plt.show()
 
-img = cv2.imread('MY_PIC.jpeg', cv2.IMREAD_COLOR)
+# Read Original Color Image
+img = cv2.imread(
+    'WhatsApp Image 2026-10-24 at 3.32.56 PM.jpeg',
+    cv2.IMREAD_COLOR
+)
+
+if img is None:
+    raise ValueError("Color image not found.")
+
+# Convert BGR to HSV
 img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-img_hsv[:,:,2] = cv2.equalizeHist(img_hsv[:, :, 2])
+
+# Apply Histogram Equalization to V Channel
+img_hsv[:, :, 2] = cv2.equalizeHist(img_hsv[:, :, 2])
+
+# Convert HSV to BGR
 img_eq = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
-plt.imshow(img_eq[:,:,::-1]); plt.title('Equalized Image');plt.show()
-plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized');plt.show()
-plt.figure(figsize = (20,10))
-plt.subplot(221); plt.imshow(img[:, :, ::-1]); plt.title('Original Color Image')
-plt.subplot(222); plt.imshow(img_eq[:, :, ::-1]); plt.title('Equalized Image')
+
+# Display Equalized Color Image
+plt.imshow(cv2.cvtColor(img_eq, cv2.COLOR_BGR2RGB))
+plt.title('Equalized Image')
+plt.axis('off')
 plt.show()
 
-plt.figure(figsize = [15,4])
-plt.subplot(121); plt.hist(img.ravel(),256,range = [0, 256]); plt.title('Original Image')
-plt.subplot(122); plt.hist(img_eq.ravel(),256,range = [0, 256]); plt.title('Histogram Equalized')
+# Display Color Image Histogram
+plt.hist(img_eq.ravel(), bins=256, range=[0, 256])
+plt.title('Histogram Equalized')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+plt.show()
+
+# Compare Original and Equalized Color Images
+plt.figure(figsize=(20, 10))
+
+plt.subplot(221)
+plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+plt.title('Original Color Image')
+plt.axis('off')
+
+plt.subplot(222)
+plt.imshow(cv2.cvtColor(img_eq, cv2.COLOR_BGR2RGB))
+plt.title('Equalized Image')
+plt.axis('off')
+
+plt.show()
+
+# Compare Original and Equalized Histograms
+plt.figure(figsize=(15, 4))
+
+plt.subplot(121)
+plt.hist(img.ravel(), bins=256, range=[0, 256])
+plt.title('Original Image Histogram')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+
+plt.subplot(122)
+plt.hist(img_eq.ravel(), bins=256, range=[0, 256])
+plt.title('Histogram Equalized')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+
+plt.tight_layout()
+plt.show()
+
 
 
 ```
